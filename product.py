@@ -48,8 +48,8 @@ class Template(ModelSQL, ModelView):
     _name = "product.template"
 
     codebase = fields.Char('Code')
-    attributes = fields.Many2Many('product.template-product.attribute', 'template',
-            'attribute', 'Attributes')
+    attributes = fields.Many2Many('product.template-product.attribute',
+                                  'template', 'attribute', 'Attributes')
 
     variant = fields.Function(fields.Boolean('Variant'),
             'get_variants')
@@ -67,7 +67,7 @@ class Template(ModelSQL, ModelView):
             ids = [ids]
         templates = self.browse(ids)
         for template in templates:
-            if template.products or  Transaction().context.get('save_templates'):
+            if template.products or Transaction().context.get('save_templates'):
                 return
         res = super(Template, self).delete(ids)
         return res
@@ -101,9 +101,10 @@ class Template(ModelSQL, ModelView):
             variants = list(itertools.product(*identifier))
 
             for variant in variants:
-                identifier = config.identifier_seperator.join(
-                                                 [i.name for i in variant])
-                code = '%s%s' % (template.codebase or '', config.code_seperator)
+                sep = config.identifier_seperator or ''
+                identifier = sep.join([i.name for i in variant])
+                code = '%s%s' % (template.codebase or '',
+                                 config.code_seperator or '')
                 sep = config.code_seperator or ''
                 code = code + sep.join([i.code for i in variant])
                 if not code in already:
