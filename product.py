@@ -1,16 +1,12 @@
 #-*- coding:utf-8 -*-
 #This file is part of Tryton.  The COPYRIGHT file at the top level of
 #this repository contains the full copyright notices and license terms.
-from trytond.model import ModelView, ModelSQL, fields
-from trytond.pyson import Equal, Eval, Greater, Not, In, If, Get, Bool, Or, And, PYSONEncoder
-from trytond.transaction import Transaction
-import logging
 import copy
 import itertools
 
-STATES = {
-    'readonly': Not(Bool(Eval('active'))),
-}
+from trytond.model import ModelView, ModelSQL, fields
+from trytond.pyson import Equal, Eval, Greater, Not, In, If, Get, Bool, Or, And
+from trytond.transaction import Transaction
 
 class Product(ModelSQL, ModelView):
     _name = 'product.product'
@@ -53,7 +49,7 @@ class Template(ModelSQL, ModelView):
 
     codebase = fields.Char('Code')
     attributes = fields.Many2Many('product.template-product.attribute', 'template',
-            'attribute', 'Attributes', states=STATES)
+            'attribute', 'Attributes')
 
     variant = fields.Function(fields.Boolean('Variant'),
             'get_variants')
@@ -108,8 +104,8 @@ class Template(ModelSQL, ModelView):
                 identifier = config.identifier_seperator.join(
                                                  [i.name for i in variant])
                 code = '%s%s' % (template.codebase or '', config.code_seperator)
-                code = code + config.code_seperator.join(
-                                                 [i.code for i in variant])
+                sep = config.code_seperator or ''
+                code = code + sep.join([i.code for i in variant])
                 if not code in already:
                     product_obj.create({'template':template.id,
                                         'identifier':identifier,

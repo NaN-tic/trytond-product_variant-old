@@ -36,7 +36,6 @@ this repository contains the full copyright notices and license terms. -->
             id="menu_variant_configuration"
             sequence="0" icon="tryton-list"
             groups="product.group_product_admin"/>
-
-        
+      
     </data>
 </tryton>

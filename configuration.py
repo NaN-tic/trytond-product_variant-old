@@ -3,7 +3,6 @@
 from trytond.model import ModelView, ModelSQL, ModelSingleton, fields
 from trytond.pyson import Eval
 
-
 class Configuration(ModelSingleton, ModelSQL, ModelView):
     'Product Configuration'
     _name = 'product.variant.configuration'
