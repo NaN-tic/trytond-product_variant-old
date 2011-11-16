@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+	<!--
+		This file is part of Tryton. The COPYRIGHT file at the top level of
+		this repository contains the full copyright notices and license terms.
+	-->
+<tryton>
+	<data>
+		<!-- productview anpassen -->
+		<record model="ir.ui.view" id="product_view_form">
+			<field name="model">product.product</field>
+			<field name="inherit" ref="product.product_view_form" />
+			<field name="arch" type="xml">
+				<![CDATA[
+				<data>
+					<xpath expr="/form/notebook/page[@id=&quot;products&quot;]"
+						position="replace">
+					</xpath>
+					<xpath expr="/form/notebook/page[@id=&quot;description&quot;]"
+						position="replace">
+					</xpath>
+					<xpath
+						expr="/form/notebook/page[@id=&quot;general&quot;]/label[@name=&quot;code&quot;]"
+						position="before">
+						<label name="template" />
+						<field name="template" />
+						<label name="variant" />
+						<field name="variant" />
+
+					</xpath>
+					<xpath
+						expr="/form/notebook/page[@id=&quot;general&quot;]/field[@name=&quot;list_price&quot;]"
+						position="after">
+						<label name="identifier" />
+						<field name="identifier" />
+					</xpath>
+				</data>
+
+				]]>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="product_view_tree2">
+			<field name="model">product.product</field>
+			<field name="inherit" ref="product.product_view_tree" />
+			<field name="arch" type="xml">
+                <![CDATA[
+                <data>
+                    <xpath
+                        expr="/tree/field[@name=&quot;code&quot;]"
+                        position="after">
+                         <field name="identifier"/>
+                    </xpath>
+                    
+                    
+                </data>
+                ]]>
+			</field>
+		</record>
+
+		
+		<!--  access to product templates -->
+
+		<record model="ir.action.act_window" id="act_product_template_form">
+			<field name="name">Product Template</field>
+			<field name="res_model">product.template</field>
+
+
+		</record>
+
+		<menuitem name="Product Template" parent="product.menu_main_product"
+			sequence="0" id="menu_product_template" action="act_product_template_form"
+			groups="product.group_product_admin" />
+		
+
+		<record model="ir.ui.view" id="template_view_form">
+			<field name="model">product.template</field>
+			<field name="inherit" ref="product.template_view_form" />
+			<field name="arch" type="xml">
+				<![CDATA[
+				<data>
+					<xpath expr="/form/field[@name=&quot;active&quot;]" position="after">
+						<label name="codebase" />
+						<field name="codebase" />
+					</xpath>
+
+					<xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
+						position="after">
+						<page string="Description" col="4" id="description">
+							<field name="description" colspan="4" />
+
+						</page>
+					</xpath>
+					<xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
+						position="after">
+						<page string="Products" col="4" id="products">
+							<field name="products" colspan="4" />
+							<field name="attributes" colspan="4" />
+							<button name="generate_contained_products" 
+							        string="Generate Variants"
+								    type="object" 
+								    icon="tryton-ok" />
+						</page>
+					</xpath>
+				</data>
+				]]>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="template_view_tree">
+			<field name="model">product.template</field>
+			<field name="inherit" ref="product.template_view_tree" />
+			<field name="arch" type="xml">
+                <![CDATA[
+                <data>
+                    <xpath
+                        expr="/tree/field[@name=&quot;name&quot;]"
+                        position="after">
+                        <field name="variants"/>   
+                    </xpath>
+                    
+                </data>
+                ]]>
+			</field>
+		</record>
+
+
+
+		<!-- Attribute -->
+		<record model="ir.action.act_window" id="act_product_attribute_form">
+			<field name="name">Product Attributes</field>
+			<field name="res_model">product.attribute</field>
+		</record>
+		<record model="ir.ui.view" id="product_attribute_view_form">
+			<field name="model">product.attribute</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+                <![CDATA[
+                <form string="Product Attributes">
+                <label name="name"/>
+                <field name="name"/>
+                <label name="sequence"/>
+                <field name="sequence"/>
+                <newline/>
+                <field name="values" colspan="4"/>
+                </form>
+                
+                ]]>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="product_attribute_view_tree">
+			<field name="model">product.attribute</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+                <![CDATA[
+                <tree string="Product Attributes">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="values"/>
+                </tree>
+                ]]>
+			</field>
+		</record>
+
+		<menuitem name="Product Attributes" parent="product.menu_main_product"
+			sequence="2" id="menu_product_attribute" action="act_product_attribute_form"
+			groups="product.group_product_admin" />
+
+		<record model="ir.ui.view" id="product_attribute_value_view_form">
+			<field name="model">product.attribute.value</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+                <![CDATA[
+                <form string="Product Attribute Values">
+                <label name="name"/>
+                <field name="name"/>
+                <label name="code"/>
+                <field name="code"/>
+                </form>
+                ]]>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="product_attribute_value_view_tree">
+			<field name="model">product.attribute.value</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+                <![CDATA[
+                <tree string="Product Attribute Values" sequence="sequence">
+                <field name="sequence" tree_invisible="1"/>
+                <field name="name"/>
+                <field name="code"/>
+                </tree>
+                ]]>
+			</field>
+		</record>
+
+
+	</data>
+</tryton>
