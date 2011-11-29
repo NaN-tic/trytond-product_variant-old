@@ -1,41 +1,43 @@
 <?xml version="1.0"?>
-<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
-this repository contains the full copyright notices and license terms. -->
+    <!--
+        This file is part of Tryton. The COPYRIGHT file at the top level of
+        this repository contains the full copyright notices and license terms.
+    -->
 <tryton>
     <data>
-        <record model="ir.ui.view" id="product_configuration_view_form">
+        <menuitem name="Variant Configuration" 
+            parent="product.menu_main_product"
+            sequence="10" id="menu_product_configuration" 
+            groups="product.group_product_admin"/>
+
+        <record model="ir.ui.view" id="configuration_view_form">
             <field name="model">variant.configuration</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <![CDATA[
-                <form string="Variant Configuration">
-                    <label name="identifier_seperator"/>
-                    <field name="identifier_seperator"/>
-                    <label name="code_seperator" />
-                    <field name="code_seperator" />
+                <form string="Code Separator">
+                    <label name="code_separator"/>
+                    <field name="code_separator"/>
                 </form>
                 ]]>
             </field>
         </record>
-        
-         <record model="ir.action.act_window" 
-                 id="act_variant_configuration_form">
+
+        <record model="ir.action.act_window" id="act_variant_configuration_form">
             <field name="name">Variant Configuration</field>
             <field name="res_model">product.variant.configuration</field>
         </record>
-       
-        <record model="ir.action.act_window.view"
-            id="act_product_configuration_view1">
-            <field name="sequence" eval="1"/>
+
+        <record model="ir.action.act_window.view" id="act_product_configuration_view1">
+            <field name="sequence" eval="10"/>
             <field name="view" ref="act_variant_configuration_form"/>
             <field name="act_window" ref="act_variant_configuration_form"/>
         </record>
         
-        <menuitem parent="product.menu_main_product"
+        <menuitem parent="menu_product_configuration" id="menu_variant_configuration"
             action="act_variant_configuration_form"
-            id="menu_variant_configuration"
-            sequence="0" icon="tryton-list"
+            sequence="10" icon="tryton-list"
             groups="product.group_product_admin"/>
-      
+
     </data>
 </tryton>
