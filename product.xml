@@ -24,7 +24,7 @@
                 ]]>
             </field>
         </record>
-        
+
         <record model="ir.ui.view" id="product_view_tree">
             <field name="model">product.product</field>
             <field name="inherit" ref="product.product_view_tree"/>
@@ -117,8 +117,7 @@
         </record>
 
         <menuitem name="Templates" parent="product.menu_main_product"
-            sequence="10" id="menu_product_template" 
-            action="act_template_form"/>
+            sequence="10" id="menu_product_template" action="act_template_form"/>
 
         <record model="ir.action.act_window" id="act_product_attribute_form">
             <field name="name">Product Attributes</field>
@@ -151,6 +150,39 @@
                 <field name="sequence"/>
                 <field name="name"/>
                 <field name="values"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+
+        <menuitem name="Product Attributes" id="menu_product_attribute"
+            parent="menu_product_configuration" sequence="10"
+            action="act_product_attribute_form" groups="product.group_product_admin"/>
+
+        <record model="ir.ui.view" id="product_attribute_value_view_form">
+            <field name="model">product.attribute.value</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <form string="Product Attribute Values">
+                <label name="name"/>
+                <field name="name"/>
+                <label name="code"/>
+                <field name="code"/>
+                </form>
+                ]]>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="product_attribute_value_view_tree">
+            <field name="model">product.attribute.value</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree string="Product Attribute Values" sequence="sequence">
+                <field name="sequence" tree_invisible="1"/>
+                <field name="name"/>
+                <field name="code"/>
                 </tree>
                 ]]>
             </field>
