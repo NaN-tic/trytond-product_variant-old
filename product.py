@@ -91,14 +91,14 @@ class Template(ModelSQL, ModelView):
                     res.append(template.id)
         else:
             for template in records:
-                if len(template.products) == 1:
+                if len(template.products) <= 1:
                     res.append(template.id)
         return [('id', 'in', res)]
 
     def create_code(self, basecode, variant):
         config_obj = self.pool.get('product.variant.configuration')
         config = config_obj.browse(1)
-        sep = config.code_seperator or ''
+        sep = config.code_separator or ''
         code = '%s%s' % (basecode or '', ['', sep][bool(basecode)])
         code = code + sep.join(i.code for i in variant)
         return code
