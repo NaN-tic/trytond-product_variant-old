@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
-    <!--
-        This file is part of Tryton. The COPYRIGHT file at the top level of
-        this repository contains the full copyright notices and license terms.
-    -->
+<!-- This file is part of Tryton. The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
         <record model="ir.ui.view" id="product_view_form">
@@ -47,8 +45,8 @@
                 <data>
                     <xpath expr="/form/field[@name=&quot;active&quot;]"
                         position="after">
-                        <label name="basecode"/>
-                        <field name="basecode"/>
+                        <label name="template_code"/>
+                        <field name="template_code"/>
                     </xpath>
                     <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
                         position="after">
@@ -61,9 +59,9 @@
                     </xpath>
                     <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
                         position="after">
-                        <page string="Basedescription" col="4" id="description"
+                        <page string="Template Description" col="4" id="description"
                             states="{'invisible': Not(Bool(Eval('variant')))}">
-                            <field name="basedescription" colspan="4"/>
+                            <field name="template_description" colspan="4"/>
                         </page>
                     </xpath>
                     <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
@@ -117,7 +115,7 @@
         </record>
 
         <menuitem name="Templates" parent="product.menu_main_product"
-            sequence="10" id="menu_product_template" action="act_template_form"/>
+            sequence="1" id="menu_product_template" action="act_template_form"/>
 
         <record model="ir.action.act_window" id="act_product_attribute_form">
             <field name="name">Product Attributes</field>

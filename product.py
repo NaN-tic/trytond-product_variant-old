@@ -12,16 +12,26 @@ class Product(ModelSQL, ModelView):
 
     attribute_values = fields.Many2Many('product.product-attribute.value',
         'product', 'value', 'Values', readonly=True)
-    template = fields.Many2One('product.template', 'Product Template',
-        ondelete='CASCADE', select=1,
-        states={
+
+    def __init__(self):
+        super(Product, self).__init__()
+        self.template.states = copy.copy(self.template.states)
+
+        states = {
             'required':Greater(Eval('active_id', 0), 0),
             'invisible':Not(Greater(Eval('active_id', 0), 0)),
             'readonly':Not(Bool(Eval('variant')))
-        })
+        }
+        for state, pyson in states.iteritems():
+            if not self.template.states.get(state):
+                self.template.states[state] = pyson
+            else:
+                self.template.states[state] = \
+                    Or(self.template.states[state],
+                    pyson)
 
     def create(self, values):
-        if not values.get('template'):
+        if values.get('template'):
             values = values.copy()
             values.pop('template')
         return super(Product, self).create(values)
@@ -39,24 +49,26 @@ Product()
 class Template(ModelSQL, ModelView):
     _name = "product.template"
 
-    basecode = fields.Char('Basecode',
+    template_code = fields.Char('Template Code',
+        required=True,
         states={
             'invisible': Not(Bool(Eval('attributes')))
-        }, depends=['attributes'])
+            }, depends=['attributes'])
     attributes = fields.Many2Many('product.template-product.attribute',
         'template', 'attribute', 'Attributes')
-    variant = fields.Function(fields.Boolean('Variant', select=1),
-        'get_variants', searcher="search_variant")
-    basedescription = fields.Text("Basedescription", translate=True)
+    variant = fields.Function(fields.Boolean('Variant'),
+        'get_variants', searcher='search_variants')
+    template_description = fields.Text("Template Description", translate=True)
 
     def __init__(self):
         super(Template, self).__init__()
         self._rpc.update({
             'generate_variants': True,
         })
-
+        #still here - but later in in product module
         for column in self._columns.itervalues():
             already = False
+            column.states = copy.copy(column.states)
             if 'readonly' in column.states:
                 already = column.states['readonly']
             column.states = {'readonly': Or(And(Bool(Eval('template')),
@@ -81,9 +93,11 @@ class Template(ModelSQL, ModelView):
                 res[template.id] = True
         return res
 
-    def search_variant(self, name, clause):
+    def search_variants(self, name, clause):
         res = []
-        ids = self.search([('id', '>', 0)])
+        cursor = Transaction().cursor
+        cursor.execute('SELECT id FROM "' + self._table + '" WHERE True ')
+        ids = [i[0] for i in cursor.fetchall()]
         records = self.browse(ids)
         if clause[2] == True:
             for template in records:
@@ -95,19 +109,20 @@ class Template(ModelSQL, ModelView):
                     res.append(template.id)
         return [('id', 'in', res)]
 
-    def create_code(self, basecode, variant):
+    def create_code(self, template_code, variant):
+        "Create code based on template and attributes"
         config_obj = self.pool.get('product.variant.configuration')
         config = config_obj.browse(1)
         sep = config.code_separator or ''
-        code = '%s%s' % (basecode or '', ['', sep][bool(basecode)])
+        code = '%s%s' % (template_code or '', ['', sep][bool(template_code)])
         code = code + sep.join(i.code for i in variant)
         return code
 
     def create_product(self, template, variant):
-        "create the product"
+        "Create product from template based on variant"
         product_obj = self.pool.get('product.product')
         value_obj = self.pool.get('product.product-attribute.value')
-        code = self.create_code(template.basecode, variant)
+        code = self.create_code(template.template_code, variant)
         new_id = product_obj.create({'template':template.id,
             'code':code})
         for value in variant:
@@ -115,7 +130,7 @@ class Template(ModelSQL, ModelView):
         return True
 
     def generate_variants(self, ids):
-        """generate variants"""
+        """Generate variants"""
         if not ids:
             return {}
         res = {}
@@ -139,7 +154,7 @@ class ProductAttribute(ModelSQL, ModelView):
     _description = __doc__
 
     sequence = fields.Integer('Sequence')
-    name = fields.Char('Name', required=True, translate=True, select=1)
+    name = fields.Char('Name', required=True, translate=True)
     values = fields.One2Many('product.attribute.value', 'attribute', 'Values')
 
     def __init__(self):
@@ -155,7 +170,7 @@ class AttributeValue(ModelSQL, ModelView):
     _description = __doc__
 
     sequence = fields.Integer('Sequence')
-    name = fields.Char('Name', required=True, select=1)
+    name = fields.Char('Name', required=True, translate=True)
     code = fields.Char('Code', required=True)
     attribute = fields.Many2One('product.attribute', 'Product Attribute',
         required=True)
@@ -173,9 +188,9 @@ class ProductTemplateAttribute(ModelSQL, ModelView):
     _description = __doc__
 
     attribute = fields.Many2One('product.attribute', 'Product Attribute',
-            ondelete='RESTRICT', required=True)
+            ondelete='RESTRICT', required=True, select=True)
     template = fields.Many2One('product.template', 'Product template',
-            ondelete='CASCADE', required=True)
+            ondelete='CASCADE', required=True, select=True)
 
 ProductTemplateAttribute()
 
@@ -186,8 +201,8 @@ class ProductAttributeValue(ModelSQL, ModelView):
     _description = __doc__
 
     product = fields.Many2One('product.product', 'Product',
-            ondelete='CASCADE', required=True)
+            ondelete='CASCADE', required=True, select=True)
     value = fields.Many2One('product.attribute.value', 'Attribute Value',
-            ondelete='CASCADE', required=True)
+            ondelete='RESTRICT', required=True, select=True)
 
 ProductAttributeValue()

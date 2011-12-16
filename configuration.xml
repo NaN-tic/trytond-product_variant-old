@@ -1,11 +1,9 @@
 <?xml version="1.0"?>
-    <!--
-        This file is part of Tryton. The COPYRIGHT file at the top level of
-        this repository contains the full copyright notices and license terms.
-    -->
+<!-- This file is part of Tryton. The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-        <menuitem name="Variant Configuration" 
+        <menuitem name="Product Configuration" 
             parent="product.menu_main_product"
             sequence="10" id="menu_product_configuration" 
             groups="product.group_product_admin"/>
@@ -15,7 +13,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <![CDATA[
-                <form string="Code Separator">
+                <form string="Variant Configuration">
                     <label name="code_separator"/>
                     <field name="code_separator"/>
                 </form>
@@ -23,18 +21,21 @@
             </field>
         </record>
 
-        <record model="ir.action.act_window" id="act_variant_configuration_form">
+        <record model="ir.action.act_window" 
+            id="act_variant_configuration_form">
             <field name="name">Variant Configuration</field>
             <field name="res_model">product.variant.configuration</field>
         </record>
 
-        <record model="ir.action.act_window.view" id="act_product_configuration_view1">
+        <record model="ir.action.act_window.view" 
+            id="act_product_configuration_view1">
             <field name="sequence" eval="10"/>
-            <field name="view" ref="act_variant_configuration_form"/>
+            <field name="view" ref="configuration_view_form"/>
             <field name="act_window" ref="act_variant_configuration_form"/>
         </record>
         
-        <menuitem parent="menu_product_configuration" id="menu_variant_configuration"
+        <menuitem parent="menu_product_configuration" 
+            id="menu_variant_configuration"
             action="act_variant_configuration_form"
             sequence="10" icon="tryton-list"
             groups="product.group_product_admin"/>
