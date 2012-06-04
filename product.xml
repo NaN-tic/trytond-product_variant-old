@@ -11,15 +11,23 @@
             <field name="arch" type="xml">
                 <![CDATA[
                 <data>
+                 <xpath
+                        expr="/form/label[@name='basecode']"
+                        position="replace"/>
                     <xpath
-                        expr="/form/notebook/page[@id=&quot;general&quot;]/label[@name=&quot;code&quot;]"
-                        position="before">
+                        expr="/form/field[@name='basecode']"
+                        position="replace">
                         <label name="template"/>
                         <field name="template"/>
                         <label name="variant"/>
                         <field name="variant"/>
                     </xpath>
-                   
+                   <xpath expr="/form/notebook/page[@id='general']/field[@name='description']"
+                        position="after">
+                        <field name="attribute_values" colspan="4"/>
+                    </xpath>
+                    <xpath expr="/form/notebook/page[@id='products']"
+                        position="replace"/>      
                 </data>
                 ]]>
             </field>
@@ -34,6 +42,7 @@
                     <xpath
                         expr="/tree/field[@name=&quot;variant&quot;]"
                         position="replace"/>
+                    
                 </data>
                 ]]>
             </field>
@@ -50,15 +59,7 @@
                         <label name="basecode"/>
                         <field name="basecode"/>
                     </xpath>
-                    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
-                        position="after">
-                        <page id="attribute_values" string="Attribute Values"
-                            states="{'invisible': 
-                                Or(Not(Bool(Eval('attribute_values'))),
-                                Not(Bool(Eval('variant'))))}">
-                            <field name="attribute_values"/>
-                        </page>
-                    </xpath>
+                    
                     <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
                         position="after">
                         <page string="Basedescription" col="4" id="description"
@@ -68,8 +69,7 @@
                     </xpath>
                     <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
                         position="after">
-                        <page string="Variants" col="4" id="products"
-                            states="{'invisible': Bool(Eval('template'))}">
+                        <page string="Variants" col="4" id="products">
                             <field name="products" colspan="4"/>
                             <field name="attributes" colspan="4"/>
                             <button name="generate_variants" 
@@ -101,7 +101,7 @@
         <record model="ir.action.act_window" id="act_template_form">
             <field name="name">Product Template</field>
             <field name="res_model">product.template</field>
-            <field name="search_value">{'variant': ['=', True]}</field>
+            <field name="search_value">[('variant','=', True)]</field>
         </record>
 
         <record model="ir.action.act_window.view" id="act_template_list_view">
@@ -154,10 +154,16 @@
                 ]]>
             </field>
         </record>
-
+        
         <menuitem name="Product Attributes" id="menu_product_attribute"
             parent="menu_product_configuration" sequence="10"
-            action="act_product_attribute_form" groups="product.group_product_admin"/>
+            action="act_product_attribute_form"/>
+        
+        <record model="ir.ui.menu-res.group"
+            id="menu_product_attribute_group">
+            <field name="menu" ref="menu_product_attribute"/>
+            <field name="group" ref="product.group_product_admin"/>
+        </record>
 
         <record model="ir.ui.view" id="product_attribute_value_view_form">
             <field name="model">product.attribute.value</field>

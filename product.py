@@ -2,7 +2,7 @@
 #this repository contains the full copyright notices and license terms.
 import copy
 import itertools
-
+from trytond.pool import Pool
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval, Greater, Or, And, Not, Bool, PYSONEncoder
 from trytond.transaction import Transaction
@@ -21,7 +21,7 @@ class Product(ModelSQL, ModelView):
         })
 
     def create(self, values):
-        if not values.get('template'):
+        if values.has_key('template') and not values['template']:
             values = values.copy()
             values.pop('template')
         return super(Product, self).create(values)
@@ -54,6 +54,12 @@ class Template(ModelSQL, ModelView):
         self._rpc.update({
             'generate_variants': True,
         })
+
+        self._buttons.update({
+                'generate_variants': {
+                    'invisible':Eval('template'),
+                    }
+            })
 
         for column in self._columns.itervalues():
             already = False
@@ -96,17 +102,18 @@ class Template(ModelSQL, ModelView):
         return [('id', 'in', res)]
 
     def create_code(self, basecode, variant):
-        config_obj = self.pool.get('product.variant.configuration')
+        config_obj = Pool().get('product.variant.configuration')
         config = config_obj.browse(1)
-        sep = config.code_seperator or ''
+        sep = config.code_separator or ''
         code = '%s%s' % (basecode or '', ['', sep][bool(basecode)])
         code = code + sep.join(i.code for i in variant)
         return code
 
     def create_product(self, template, variant):
         "create the product"
-        product_obj = self.pool.get('product.product')
-        value_obj = self.pool.get('product.product-attribute.value')
+        pool = Pool()
+        product_obj = pool.get('product.product')
+        value_obj = pool.get('product.product-attribute.value')
         code = self.create_code(template.basecode, variant)
         new_id = product_obj.create({'template':template.id,
             'code':code})
@@ -114,11 +121,11 @@ class Template(ModelSQL, ModelView):
             value_obj.create({'product':new_id, 'value':value.id})
         return True
 
+    @ModelView.button
     def generate_variants(self, ids):
         """generate variants"""
         if not ids:
-            return {}
-        res = {}
+            return False
         for template in self.browse(ids):
             if not template.attributes:
                 continue
@@ -128,7 +135,7 @@ class Template(ModelSQL, ModelView):
             for variant in variants:
                 if not variant in already:
                     self.create_product(template, variant)
-        return res
+        return True
 
 Template()
 

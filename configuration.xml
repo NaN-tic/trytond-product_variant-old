@@ -5,10 +5,18 @@
     -->
 <tryton>
     <data>
+    
         <menuitem name="Variant Configuration" 
             parent="product.menu_main_product"
-            sequence="10" id="menu_product_configuration" 
-            groups="product.group_product_admin"/>
+            sequence="10" 
+            id="menu_product_configuration" 
+            />
+            
+        <record model="ir.ui.menu-res.group"
+            id="menu_product_configuration_group">
+            <field name="menu" ref="menu_product_configuration"/>
+            <field name="group" ref="product.group_product_admin"/>
+        </record>
 
         <record model="ir.ui.view" id="configuration_view_form">
             <field name="model">variant.configuration</field>
@@ -34,10 +42,16 @@
             <field name="act_window" ref="act_variant_configuration_form"/>
         </record>
         
-        <menuitem parent="menu_product_configuration" id="menu_variant_configuration"
+        <menuitem parent="menu_product_configuration" 
+            id="menu_variant_configuration"
             action="act_variant_configuration_form"
             sequence="10" icon="tryton-list"
-            groups="product.group_product_admin"/>
+            />
+        <record model="ir.ui.menu-res.group"
+            id="menu_variant_configuration_group">
+            <field name="menu" ref="menu_variant_configuration"/>
+            <field name="group" ref="product.group_product_admin"/>
+        </record>
 
     </data>
 </tryton>
