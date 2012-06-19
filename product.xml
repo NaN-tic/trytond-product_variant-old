@@ -147,7 +147,7 @@
             <field name="arch" type="xml">
                 <![CDATA[
                 <tree string="Product Attributes" sequence="sequence">
-                <field name="sequence"/>
+                <field name="sequence" tree_invisible="1"/>
                 <field name="name"/>
                 <field name="values"/>
                 </tree>

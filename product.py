@@ -21,9 +21,10 @@ class Product(ModelSQL, ModelView):
         })
 
     def create(self, values):
-        if values.has_key('template') and not values['template']:
+        if not values.get('template'):
             values = values.copy()
-            values.pop('template')
+            try:values.pop('template')
+            except:pass
         return super(Product, self).create(values)
 
     def delete(self, ids):
@@ -146,7 +147,8 @@ class ProductAttribute(ModelSQL, ModelView):
     _description = __doc__
 
     sequence = fields.Integer('Sequence')
-    name = fields.Char('Name', required=True, translate=True, select=1)
+    name = fields.Char('Name', required=True, translate=True, select=1,
+                       order_field="%(table)s.sequence %(order)s")
     values = fields.One2Many('product.attribute.value', 'attribute', 'Values')
 
     def __init__(self):
