@@ -63,11 +63,12 @@ class Template(ModelSQL, ModelView):
                 Bool(Eval('variants'))), already)}
 
     def delete(self, ids):
-        for template in self.browse(ids):
-            if not Transaction().delete_records.get('product.template'):
-                ids.remove(template.id)
-        res = super(Template, self).delete(ids)
-        return res
+        #don't know - but this prevent always the deleation of the template
+        #so the user has to delete empty templates manually
+        ids = list(set(ids))
+        if Transaction().delete:
+            return ids
+        return super(Template, self).delete(ids)
 
     def get_variants(self, ids, name):
         res = {}
@@ -77,15 +78,10 @@ class Template(ModelSQL, ModelView):
 
     def search_variants(self, name, clause):
         res = []
-        ids = self.search([('id', '>', 0)])
+        ids = self.search([])
         records = self.browse(ids)
-        if clause[2] == True:
-            for template in records:
-                if len(template.products) > 1:
-                    res.append(template.id)
-        else:
-            for template in records:
-                if len(template.products) == 1:
+        for template in records:
+                if len(template.products) >= clause[2]:
                     res.append(template.id)
         return [('id', 'in', res)]
 
