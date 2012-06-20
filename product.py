@@ -11,13 +11,14 @@ class Product(ModelSQL, ModelView):
     _name = 'product.product'
 
     attribute_values = fields.Many2Many('product.product-attribute.value',
-        'product', 'value', 'Values', readonly=True)
+        'product', 'value', 'Values', readonly=True,
+        order=[('value', 'DESC')])
     template = fields.Many2One('product.template', 'Product Template',
         ondelete='CASCADE', select=1,
         states={
             'required':Greater(Eval('active_id', 0), 0),
             'invisible':Not(Greater(Eval('active_id', 0), 0)),
-            'readonly':Not(Bool(Eval('variant')))
+            'readonly':Not(Bool(Eval('variants')))
         })
 
     def create(self, values):
@@ -25,13 +26,6 @@ class Product(ModelSQL, ModelView):
             values = values.copy()
             values.pop('template')
         return super(Product, self).create(values)
-
-    def delete(self, ids):
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        Transaction().set_context(save_templates=True)
-        res = super(Product, self).delete(ids)
-        return res
 
 Product()
 
@@ -45,8 +39,8 @@ class Template(ModelSQL, ModelView):
         }, depends=['attributes'])
     attributes = fields.Many2Many('product.template-product.attribute',
         'template', 'attribute', 'Attributes')
-    variant = fields.Function(fields.Boolean('Variant', select=1),
-        'get_variants', searcher="search_variant")
+    variants = fields.Function(fields.Integer('Variants', select=1),
+        'get_variants', searcher='search_variants')
     basedescription = fields.Text("Basedescription", translate=True)
 
     def __init__(self):
@@ -66,28 +60,22 @@ class Template(ModelSQL, ModelView):
             if 'readonly' in column.states:
                 already = column.states['readonly']
             column.states = {'readonly': Or(And(Bool(Eval('template')),
-                Bool(Eval('variant'))), already)}
+                Bool(Eval('variants'))), already)}
 
     def delete(self, ids):
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        templates = self.browse(ids)
-        for template in templates:
-            if template.products or \
-            Transaction().context.get('save_templates'):
-                return
+        for template in self.browse(ids):
+            if not Transaction().delete_records.get('product.template'):
+                ids.remove(template.id)
         res = super(Template, self).delete(ids)
         return res
 
     def get_variants(self, ids, name):
         res = {}
         for template in self.browse(ids):
-            res[template.id] = False
-            if len(template.products) > 1:
-                res[template.id] = True
+            res[template.id] = len(template.products)
         return res
 
-    def search_variant(self, name, clause):
+    def search_variants(self, name, clause):
         res = []
         ids = self.search([('id', '>', 0)])
         records = self.browse(ids)
@@ -129,12 +117,15 @@ class Template(ModelSQL, ModelView):
         for template in self.browse(ids):
             if not template.attributes:
                 continue
-            already = set(tuple(p.attribute_values) for p in template.products)
+            already = set(tuple(i.attribute_values) for i in template.products)
+            to_del = [i.id for i in template.products
+                      if not i.attribute_values]
             values = [i.values for i in template.attributes]
             variants = itertools.product(*values)
             for variant in variants:
                 if not variant in already:
                     self.create_product(template, variant)
+            Pool().get('product.product').delete(to_del)
         return True
 
 Template()
@@ -197,5 +188,14 @@ class ProductAttributeValue(ModelSQL, ModelView):
             ondelete='CASCADE', required=True)
     value = fields.Many2One('product.attribute.value', 'Attribute Value',
             ondelete='CASCADE', required=True)
+
+    def search(self, args, offset=0, limit=None, order=None, count=False,
+            query_string=False):
+        res = super(ProductAttributeValue, self).search(args,
+                offset=offset, limit=limit, order=order,
+                count=count, query_string=query_string)
+        obs = [(ob.value.attribute.sequence, ob.id) for ob in self.browse(res)]
+        obs.sort()
+        return [i[1] for i in obs]
 
 ProductAttributeValue()
