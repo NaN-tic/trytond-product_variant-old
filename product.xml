@@ -108,6 +108,11 @@
         </record>
         <menuitem name="Templates" parent="product.menu_main_product"
             sequence="0" id="menu_product_templates" action="act_template_form"/>
+        <record model="ir.ui.menu-res.group"
+            id="menu_product_template_group">
+            <field name="menu" ref="menu_product_templates"/>
+            <field name="group" ref="product.group_product_admin"/>
+        </record>
         
         <record model="ir.action.act_window" id="act_relate_form">
             <field name="name">Product Variants</field>
