@@ -41,7 +41,6 @@ class Template(ModelSQL, ModelView):
         'template', 'attribute', 'Attributes')
     variants = fields.Function(fields.Integer('Variants', select=1),
         'get_variants', searcher='search_variants')
-    basedescription = fields.Text("Basedescription", translate=True)
 
     def __init__(self):
         super(Template, self).__init__()

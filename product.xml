@@ -58,15 +58,7 @@
                         position="after">
                         <label name="basecode"/>
                         <field name="basecode"/>
-                    </xpath>
-                    
-                    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
-                        position="after">
-                        <page string="Basedescription" col="4" id="description"
-                            states="{'invisible': Not(Bool(Eval('variants')))}">
-                            <field name="basedescription" colspan="4"/>
-                        </page>
-                    </xpath>
+                    </xpath>                    
                     <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
                         position="after">
                         <page string="Variants" col="4" id="products">
