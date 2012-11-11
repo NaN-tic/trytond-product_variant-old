@@ -44,10 +44,6 @@ class Template(ModelSQL, ModelView):
 
     def __init__(self):
         super(Template, self).__init__()
-        self._rpc.update({
-            'generate_variants': True,
-        })
-
         self._buttons.update({
                 'generate_variants': {
                     'invisible':Eval('template'),
