@@ -1,11 +1,11 @@
 #This file is part of Tryton.  The COPYRIGHT file at the top level of
 #this repository contains the full copyright notices and license terms.
-import copy
 import itertools
 from trytond.pool import Pool
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pyson import Eval, Greater, Or, And, Not, Bool, PYSONEncoder
+from trytond.pyson import Eval, Greater, Or, And, Not, Bool
 from trytond.transaction import Transaction
+
 
 class Product(ModelSQL, ModelView):
     _name = 'product.product'
@@ -16,9 +16,9 @@ class Product(ModelSQL, ModelView):
     template = fields.Many2One('product.template', 'Product Template',
         ondelete='CASCADE', select=1,
         states={
-            'required':Greater(Eval('active_id', 0), 0),
-            'invisible':Not(Greater(Eval('active_id', 0), 0)),
-            'readonly':Not(Bool(Eval('variants')))
+            'required': Greater(Eval('active_id', 0), 0),
+            'invisible': Not(Greater(Eval('active_id', 0), 0)),
+            'readonly': Not(Bool(Eval('variants')))
         })
 
     def create(self, values):
@@ -46,7 +46,7 @@ class Template(ModelSQL, ModelView):
         super(Template, self).__init__()
         self._buttons.update({
                 'generate_variants': {
-                    'invisible':Eval('template'),
+                    'invisible': Eval('template'),
                     }
             })
 
@@ -94,10 +94,9 @@ class Template(ModelSQL, ModelView):
         product_obj = pool.get('product.product')
         value_obj = pool.get('product.product-attribute.value')
         code = self.create_code(template.basecode, variant)
-        new_id = product_obj.create({'template':template.id,
-            'code':code})
+        new_id = product_obj.create({'template': template.id, 'code': code})
         for value in variant:
-            value_obj.create({'product':new_id, 'value':value.id})
+            value_obj.create({'product': new_id, 'value': value.id})
         return True
 
     @ModelView.button
