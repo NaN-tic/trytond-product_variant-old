@@ -1,0 +1,259 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:product.attribute,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:product.attribute,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:product.attribute,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.attribute,name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:product.attribute,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:product.attribute,sequence:"
+msgid "Sequence"
+msgstr "Seqüència"
+
+msgctxt "field:product.attribute,values:"
+msgid "Values"
+msgstr "Valors"
+
+msgctxt "field:product.attribute,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:product.attribute,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:product.attribute.value,attribute:"
+msgid "Product Attribute"
+msgstr "Atributs del producte"
+
+msgctxt "field:product.attribute.value,code:"
+msgid "Code"
+msgstr "Codi"
+
+msgctxt "field:product.attribute.value,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:product.attribute.value,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:product.attribute.value,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.attribute.value,name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:product.attribute.value,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:product.attribute.value,sequence:"
+msgid "Sequence"
+msgstr "Seqüència"
+
+msgctxt "field:product.attribute.value,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:product.attribute.value,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:product.product,attribute_values:"
+msgid "Values"
+msgstr "Valors"
+
+msgctxt "field:product.product-attribute.value,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:product.product-attribute.value,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:product.product-attribute.value,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.product-attribute.value,product:"
+msgid "Product"
+msgstr "Producte"
+
+msgctxt "field:product.product-attribute.value,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:product.product-attribute.value,value:"
+msgid "Product Template1"
+msgstr "Valors dels atributs"
+
+msgctxt "field:product.product-attribute.value,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:product.product-attribute.value,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:product.template,attributes:"
+msgid "Attributes"
+msgstr "Atributs"
+
+msgctxt "field:product.template,basecode:"
+msgid "Basecode"
+msgstr "Codi base"
+
+msgctxt "field:product.template,variants:"
+msgid "Variants"
+msgstr "Variants"
+
+msgctxt "field:product.template-product.attribute,attribute:"
+msgid "Product Attribute"
+msgstr "Atributs del producte"
+
+msgctxt "field:product.template-product.attribute,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:product.template-product.attribute,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:product.template-product.attribute,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.template-product.attribute,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:product.template-product.attribute,template:"
+msgid "Product template"
+msgstr "Plantilla producte"
+
+msgctxt "field:product.template-product.attribute,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:product.template-product.attribute,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:product.variant.configuration,code_separator:"
+msgid "Code Separator"
+msgstr "Codi separadors"
+
+msgctxt "field:product.variant.configuration,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:product.variant.configuration,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:product.variant.configuration,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.variant.configuration,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:product.variant.configuration,write_date:"
+msgid "Write Date"
+msgstr "Data modificació"
+
+msgctxt "field:product.variant.configuration,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "help:product.template,variants:"
+msgid "Number variants from this template"
+msgstr "Número de variants que conté la plantilla del producte."
+
+msgctxt "model:ir.action,name:act_product_attribute_form"
+msgid "Product Attributes"
+msgstr "Atributs del producte"
+
+msgctxt "model:ir.action,name:act_relate_form"
+msgid "Product Variants"
+msgstr "Variants producte"
+
+msgctxt "model:ir.action,name:act_variant_configuration_form"
+msgid "Variant Configuration"
+msgstr "Configuració variants"
+
+msgctxt "model:ir.ui.menu,name:menu_product_attribute"
+msgid "Product Attributes"
+msgstr "Atributs del producte"
+
+msgctxt "model:ir.ui.menu,name:menu_product_configuration"
+msgid "Variant Configuration"
+msgstr "Configuració variants"
+
+msgctxt "model:ir.ui.menu,name:menu_product_templates"
+msgid "Product Template"
+msgstr "Plantilla producte"
+
+msgctxt "model:ir.ui.menu,name:menu_variant_configuration"
+msgid "Variant Configuration"
+msgstr "Configuració variants"
+
+msgctxt "model:product.attribute,name:"
+msgid "Product Attribute"
+msgstr "Atributs del producte"
+
+msgctxt "model:product.attribute.value,name:"
+msgid "Values for Attributes"
+msgstr "Valors dels atributs"
+
+msgctxt "model:product.product-attribute.value,name:"
+msgid "Product - Product Attribute Value"
+msgstr "Producte - Valors atribut del producte"
+
+msgctxt "model:product.template-product.attribute,name:"
+msgid "Product Template - Product Attribute"
+msgstr "Plantilla producte - Atribut producte"
+
+msgctxt "model:product.variant.configuration,name:"
+msgid "Variant Configuration"
+msgstr "Configuració variants"
+
+msgctxt "view:product.attribute.value:"
+msgid "Product Attribute Values"
+msgstr "Valors atributs del producte"
+
+msgctxt "view:product.attribute:"
+msgid "Product Attributes"
+msgstr "Atributs del producte"
+
+msgctxt "view:product.product:"
+msgid "Variants"
+msgstr "Variants"
+
+msgctxt "view:product.template:"
+msgid "Generate Variants"
+msgstr "Genera variants"
+
+msgctxt "view:product.template:"
+msgid "Variants"
+msgstr "Variants"
