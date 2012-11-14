@@ -24,7 +24,7 @@ class Product(ModelSQL, ModelView):
         })
 
     def create(self, values):
-        if values.has_key('template') and not values['template']:
+        if values.get('template') and not values['template']:
             values = values.copy()
             values.pop('template')
         return super(Product, self).create(values)
