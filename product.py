@@ -41,7 +41,8 @@ class Template(ModelSQL, ModelView):
         }, depends=['attributes'])
     attributes = fields.Many2Many('product.template-product.attribute',
         'template', 'attribute', 'Attributes')
-    variants = fields.Function(fields.Integer('Variants', select=1),
+    variants = fields.Function(fields.Integer('Variants', select=1,
+        help='Number variants from this template'),
         'get_variants', searcher='search_variants')
 
     def __init__(self):
