@@ -1,0 +1,259 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:product.attribute,create_date:"
+msgid "Create Date"
+msgstr "Fecha creación"
+
+msgctxt "field:product.attribute,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:product.attribute,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.attribute,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:product.attribute,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:product.attribute,sequence:"
+msgid "Sequence"
+msgstr "Secuencia"
+
+msgctxt "field:product.attribute,values:"
+msgid "Values"
+msgstr "Valores"
+
+msgctxt "field:product.attribute,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:product.attribute,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:product.attribute.value,attribute:"
+msgid "Product Attribute"
+msgstr "Atributo producto"
+
+msgctxt "field:product.attribute.value,code:"
+msgid "Code"
+msgstr "Código"
+
+msgctxt "field:product.attribute.value,create_date:"
+msgid "Create Date"
+msgstr "Fecha creación"
+
+msgctxt "field:product.attribute.value,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:product.attribute.value,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.attribute.value,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:product.attribute.value,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:product.attribute.value,sequence:"
+msgid "Sequence"
+msgstr "Secuencia"
+
+msgctxt "field:product.attribute.value,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:product.attribute.value,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:product.product,attribute_values:"
+msgid "Values"
+msgstr "Valores"
+
+msgctxt "field:product.product-attribute.value,create_date:"
+msgid "Create Date"
+msgstr "Fecha creación"
+
+msgctxt "field:product.product-attribute.value,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:product.product-attribute.value,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.product-attribute.value,product:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "field:product.product-attribute.value,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:product.product-attribute.value,value:"
+msgid "Attribute Value"
+msgstr "Valores atributos"
+
+msgctxt "field:product.product-attribute.value,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:product.product-attribute.value,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:product.template,attributes:"
+msgid "Attributes"
+msgstr "Atributos"
+
+msgctxt "field:product.template,basecode:"
+msgid "Basecode"
+msgstr "Código base"
+
+msgctxt "field:product.template,variants:"
+msgid "Variants"
+msgstr "Variantes"
+
+msgctxt "field:product.template-product.attribute,attribute:"
+msgid "Product Attribute"
+msgstr "Atributo producto"
+
+msgctxt "field:product.template-product.attribute,create_date:"
+msgid "Create Date"
+msgstr "Fecha creación"
+
+msgctxt "field:product.template-product.attribute,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:product.template-product.attribute,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.template-product.attribute,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:product.template-product.attribute,template:"
+msgid "Product template"
+msgstr "Plantilla producto"
+
+msgctxt "field:product.template-product.attribute,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:product.template-product.attribute,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:product.variant.configuration,code_separator:"
+msgid "Code Separator"
+msgstr "Separador de código"
+
+msgctxt "field:product.variant.configuration,create_date:"
+msgid "Create Date"
+msgstr "Fecha creación"
+
+msgctxt "field:product.variant.configuration,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:product.variant.configuration,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.variant.configuration,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:product.variant.configuration,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:product.variant.configuration,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "help:product.template,variants:"
+msgid "Number variants from this template"
+msgstr "Número de variantes que se dispone en esta plantilla deproducto."
+
+msgctxt "model:ir.action,name:act_product_attribute_form"
+msgid "Product Attributes"
+msgstr "Atributos producto"
+
+msgctxt "model:ir.action,name:act_relate_form"
+msgid "Product Variants"
+msgstr "Variantes producto"
+
+msgctxt "model:ir.action,name:act_variant_configuration_form"
+msgid "Variant Configuration"
+msgstr "Configuración variantes"
+
+msgctxt "model:ir.ui.menu,name:menu_product_attribute"
+msgid "Product Attributes"
+msgstr "Atributos producto"
+
+msgctxt "model:ir.ui.menu,name:menu_product_configuration"
+msgid "Variant Configuration"
+msgstr "Configuración variantes"
+
+msgctxt "model:ir.ui.menu,name:menu_product_templates"
+msgid "Product Template"
+msgstr "Plantilla producto"
+
+msgctxt "model:ir.ui.menu,name:menu_variant_configuration"
+msgid "Variant Configuration"
+msgstr "Configuración variantes"
+
+msgctxt "model:product.attribute,name:"
+msgid "Product Attribute"
+msgstr "Atributo producto"
+
+msgctxt "model:product.attribute.value,name:"
+msgid "Values for Attributes"
+msgstr "Valores por atributos"
+
+msgctxt "model:product.product-attribute.value,name:"
+msgid "Product - Product Attribute Value"
+msgstr "Producto - Valores atributo producto"
+
+msgctxt "model:product.template-product.attribute,name:"
+msgid "Product Template - Product Attribute"
+msgstr "Plantilla producto - Atributo producto"
+
+msgctxt "model:product.variant.configuration,name:"
+msgid "Variant Configuration"
+msgstr "Configuración variantes"
+
+msgctxt "view:product.attribute.value:"
+msgid "Product Attribute Values"
+msgstr "Valores atributo producto"
+
+msgctxt "view:product.attribute:"
+msgid "Product Attributes"
+msgstr "Atributos producto"
+
+msgctxt "view:product.product:"
+msgid "Variants"
+msgstr "Variantes"
+
+msgctxt "view:product.template:"
+msgid "Generate Variants"
+msgstr "Generar variantes"
+
+msgctxt "view:product.template:"
+msgid "Variants"
+msgstr "Variantes"
