@@ -68,7 +68,10 @@ class Template(ModelSQL, ModelView):
     def get_variants(self, ids, name):
         res = {}
         for template in self.browse(ids):
-            res[template.id] = len(template.products)
+            variants = len(template.products)
+            if variants <= 1:
+                variants = None
+            res[template.id] = variants
         return res
 
     def search_variants(self, name, clause):
