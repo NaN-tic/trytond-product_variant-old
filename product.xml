@@ -12,22 +12,20 @@
             <field name="arch" type="xml">
                 <![CDATA[
                 <data>
-                 <xpath
+                    <xpath expr="/form/notebook" position="inside">
+                        <page string="Variants" id="variants" states="{'invisible': Not(Bool(Eval('variants')))}">
+                            <label name="variants"/>
+                            <field name="variants"/>
+                            <field name="attribute_values" colspan="4"/>
+                        </page>
+                    </xpath>
+                    <xpath
                         expr="/form/label[@name='basecode']"
                         position="replace"/>
                     <xpath
                         expr="/form/field[@name='basecode']"
-                        position="replace">
-                        <label name="template"/>
-                        <field name="template"/>
-                        <label name="variants"/>
-                        <field name="variants"/>
-                    </xpath>
-                   <xpath expr="/form/notebook/page[@id='general']/field[@name='description']"
-                        position="after">
-                        <field name="attribute_values" colspan="4"/>
-                    </xpath>
-                    <xpath expr="/form/notebook/page[@id='products']"
+                        position="replace"/>
+                    <xpath expr="/form/notebook/page[@id='variants']"
                         position="replace"/>      
                 </data>
                 ]]>
@@ -43,7 +41,6 @@
                     <xpath
                         expr="/tree/field[@name=&quot;variants&quot;]"
                         position="replace"/>
-                    
                 </data>
                 ]]>
             </field>
@@ -63,12 +60,12 @@
                     </xpath>                    
                     <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
                         position="after">
-                        <page string="Variants" col="4" id="products">
-                            <field name="products" colspan="4"/>
+                        <page string="Variants" col="4" id="variants">
                             <field name="attributes" colspan="4"/>
                             <button name="generate_variants" 
                                 string="Generate Variants"
                                 type="object" icon="tryton-ok"/>
+                            <field name="products" colspan="4"/>
                         </page>
                     </xpath>
                 </data>
