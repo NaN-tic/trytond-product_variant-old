@@ -131,6 +131,10 @@ class ProductAttribute(ModelSQL, ModelView):
         super(ProductAttribute, cls).__setup__()
         cls._order.insert(0, ('sequence', 'ASC'))
 
+    @staticmethod
+    def default_sequence():
+        return 0
+
 
 class AttributeValue(ModelSQL, ModelView):
     "Values for Attributes"
@@ -145,6 +149,10 @@ class AttributeValue(ModelSQL, ModelView):
     def __setup__(cls):
         super(AttributeValue, cls).__setup__()
         cls._order.insert(0, ('sequence', 'ASC'))
+
+    @staticmethod
+    def default_sequence():
+        return 0
 
 
 class ProductTemplateAttribute(ModelSQL, ModelView):
