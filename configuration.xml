@@ -29,20 +29,20 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             </field>
         </record>
 
-        <record model="ir.action.act_window" id="act_variant_configuration_form">
+        <record model="ir.action.act_window" id="act_product_variant_configuration_form">
             <field name="name">Variant Configuration</field>
             <field name="res_model">product.variant.configuration</field>
         </record>
 
         <record model="ir.action.act_window.view" id="act_product_configuration_view1">
             <field name="sequence" eval="10"/>
-            <field name="view" ref="act_variant_configuration_form"/>
-            <field name="act_window" ref="act_variant_configuration_form"/>
+            <field name="view" ref="act_product_variant_configuration_form"/>
+            <field name="act_window" ref="act_product_variant_configuration_form"/>
         </record>
         
         <menuitem parent="menu_product_configuration" 
             id="menu_variant_configuration"
-            action="act_variant_configuration_form"
+            action="act_product_variant_configuration_form"
             sequence="10" icon="tryton-list"
             />
         <record model="ir.ui.menu-res.group"
