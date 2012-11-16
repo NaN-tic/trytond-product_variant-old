@@ -3,15 +3,19 @@
 #the full copyright notices and license terms.
 
 import itertools
-from trytond.pool import Pool
+from trytond.pool import Pool, PoolMeta
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pyson import Eval, Greater, Or, And, Not, Bool
+from trytond.pyson import Eval, Greater, Not, Bool
 from trytond.transaction import Transaction
 
 
-class Product(ModelSQL, ModelView):
-    _name = 'product.product'
+__all__ = ['Product', 'Template', 'ProductAttribute', 'AttributeValue',
+    'ProductTemplateAttribute', 'ProductAttributeValue']
+__metaclass__ = PoolMeta
 
+
+class Product:
+    __name__ = 'product.product'
     attribute_values = fields.Many2Many('product.product-attribute.value',
         'product', 'value', 'Values', readonly=True,
         order=[('value', 'DESC')])
@@ -23,18 +27,16 @@ class Product(ModelSQL, ModelView):
             'readonly': Not(Bool(Eval('variants')))
         })
 
-    def create(self, values):
-        if values.get('template') and not values['template']:
-            values = values.copy()
-            values.pop('template')
-        return super(Product, self).create(values)
+    @classmethod
+    def create(cls, vals):
+        if vals.get('template') and not vals['template']:
+            vals = vals.copy()
+            vals.pop('template')
+        return super(Product, cls).create(vals)
 
-Product()
 
-
-class Template(ModelSQL, ModelView):
-    _name = "product.template"
-
+class Template:
+    __name__ = 'product.template'
     basecode = fields.Char('Basecode',
         states={
             'invisible': Not(Bool(Eval('attributes')))
@@ -45,72 +47,64 @@ class Template(ModelSQL, ModelView):
         help='Number variants from this template'),
         'get_variants', searcher='search_variants')
 
-    def __init__(self):
-        super(Template, self).__init__()
-        self._buttons.update({
+    @classmethod
+    def __setup__(cls):
+        super(Template, cls).__setup__()
+        cls._buttons.update({
                 'generate_variants': {
                     'invisible': Eval('template'),
                     }
             })
 
-        for column in self._columns.itervalues():
-            already = False
-            if 'readonly' in column.states:
-                already = column.states['readonly']
-            column.states = {'readonly': Or(And(Bool(Eval('template')),
-                Bool(Eval('variants'))), already)}
-
-    def delete(self, ids):
+    @classmethod
+    def delete(cls, templates):
         #don't know - but this prevent always the deleation of the template
         #so the user has to delete empty templates manually
-        ids = list(set(ids))
+        templates = list(set(templates))
         if Transaction().delete:
-            return ids
-        return super(Template, self).delete(ids)
+            return templates
+        return super(Template, cls).delete(templates)
 
-    def get_variants(self, ids, name):
-        res = {}
-        for template in self.browse(ids):
-            variants = len(template.products)
-            if variants <= 1:
-                variants = None
-            res[template.id] = variants
-        return res
+    def get_variants(self, name=None):
+        variants = len(self.products)
+        if variants <= 1:
+            variants = None
+        return variants
 
-    def search_variants(self, name, clause):
+    @classmethod
+    def search_variants(cls, name, clause):
         res = []
-        ids = self.search([])
-        records = self.browse(ids)
-        for template in records:
-                if len(template.products) >= clause[2]:
-                    res.append(template.id)
+        for template in cls.search([]):
+            if len(template.products) >= clause[2]:
+                res.append(template.id)
         return [('id', 'in', res)]
 
+    @classmethod
     def create_code(self, basecode, variant):
-        config_obj = Pool().get('product.variant.configuration')
-        config = config_obj.browse(1)
+        Config = Pool().get('product.variant.configuration')
+        config = Config(1)
         sep = config.code_separator or ''
         code = '%s%s' % (basecode or '', ['', sep][bool(basecode)])
         code = code + sep.join(i.code for i in variant)
         return code
 
+    @classmethod
     def create_product(self, template, variant):
-        "create the product"
+        "Create the product from variant"
         pool = Pool()
-        product_obj = pool.get('product.product')
-        value_obj = pool.get('product.product-attribute.value')
+        Product = pool.get('product.product')
+        Value = pool.get('product.product-attribute.value')
         code = self.create_code(template.basecode, variant)
-        new_id = product_obj.create({'template': template.id, 'code': code})
+        new_id = Product.create({'template': template.id, 'code': code})
         for value in variant:
-            value_obj.create({'product': new_id, 'value': value.id})
+            Value.create({'product': new_id, 'value': value.id})
         return True
 
+    @classmethod
     @ModelView.button
-    def generate_variants(self, ids):
+    def generate_variants(cls, templates):
         """generate variants"""
-        if not ids:
-            return False
-        for template in self.browse(ids):
+        for template in templates:
             if not template.attributes:
                 continue
             already = set(tuple(i.attribute_values) for i in template.products)
@@ -120,78 +114,62 @@ class Template(ModelSQL, ModelView):
             variants = itertools.product(*values)
             for variant in variants:
                 if not variant in already:
-                    self.create_product(template, variant)
+                    cls.create_product(template, variant)
             Pool().get('product.product').delete(to_del)
-        return True
-
-Template()
 
 
 class ProductAttribute(ModelSQL, ModelView):
     "Product Attribute"
-    _name = "product.attribute"
-    _description = __doc__
-
+    __name__ = "product.attribute"
     sequence = fields.Integer('Sequence')
     name = fields.Char('Name', required=True, translate=True, select=1,
                        order_field="%(table)s.sequence %(order)s")
     values = fields.One2Many('product.attribute.value', 'attribute', 'Values')
 
-    def __init__(self):
-        super(ProductAttribute, self).__init__()
-        self._order.insert(0, ('sequence', 'ASC'))
-
-ProductAttribute()
+    @classmethod
+    def __setup__(cls):
+        super(ProductAttribute, cls).__setup__()
+        cls._order.insert(0, ('sequence', 'ASC'))
 
 
 class AttributeValue(ModelSQL, ModelView):
     "Values for Attributes"
-    _name = "product.attribute.value"
-    _description = __doc__
-
+    __name__ = "product.attribute.value"
     sequence = fields.Integer('Sequence')
     name = fields.Char('Name', required=True, select=1)
     code = fields.Char('Code', required=True)
     attribute = fields.Many2One('product.attribute', 'Product Attribute',
         required=True)
 
-    def __init__(self):
-        super(AttributeValue, self).__init__()
-        self._order.insert(0, ('sequence', 'ASC'))
-
-AttributeValue()
+    @classmethod
+    def __setup__(cls):
+        super(AttributeValue, cls).__setup__()
+        cls._order.insert(0, ('sequence', 'ASC'))
 
 
 class ProductTemplateAttribute(ModelSQL, ModelView):
     "Product Template - Product Attribute"
-    _name = "product.template-product.attribute"
-    _description = __doc__
-
+    __name__ = "product.template-product.attribute"
     attribute = fields.Many2One('product.attribute', 'Product Attribute',
             ondelete='RESTRICT', required=True)
     template = fields.Many2One('product.template', 'Product template',
             ondelete='CASCADE', required=True)
 
-ProductTemplateAttribute()
-
 
 class ProductAttributeValue(ModelSQL, ModelView):
     "Product - Product Attribute Value"
-    _name = "product.product-attribute.value"
-    _description = __doc__
-
+    __name__ = "product.product-attribute.value"
     product = fields.Many2One('product.product', 'Product',
             ondelete='CASCADE', required=True)
     value = fields.Many2One('product.attribute.value', 'Attribute Value',
             ondelete='CASCADE', required=True)
 
-    def search(self, args, offset=0, limit=None, order=None, count=False,
-            query_string=False):
-        res = super(ProductAttributeValue, self).search(args,
-                offset=offset, limit=limit, order=order,
-                count=count, query_string=query_string)
-        obs = [(ob.value.attribute.sequence, ob.id) for ob in self.browse(res)]
+    @classmethod
+    def search(cls, domain, offset=0, limit=None, order=None, count=False):
+        '''Order attributes value by sequence'''
+        res = super(ProductAttributeValue, cls).search(domain, offset=offset,
+                limit=limit, order=order, count=count)
+        obs = [(ob.value.attribute.sequence, ob.id) for ob in res]
         obs.sort()
-        return [i[1] for i in obs]
-
-ProductAttributeValue()
+        res = [cls(i[1]) for i in obs]
+        return res

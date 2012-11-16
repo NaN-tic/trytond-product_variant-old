@@ -62,7 +62,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
                             <field name="attributes" colspan="4"/>
                             <button name="generate_variants" 
                                 string="Generate Variants"
-                                type="object" icon="tryton-ok"/>
+                                icon="tryton-ok"/>
                             <field name="products" colspan="4"/>
                         </page>
                     </xpath>
@@ -188,6 +188,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
                 <field name="name"/>
                 <label name="code"/>
                 <field name="code"/>
+                <label name="sequence"/>
+                <field name="sequence"/>
                 </form>
                 ]]>
             </field>

@@ -5,11 +5,12 @@
 from trytond.model import ModelView, ModelSQL, ModelSingleton, fields
 
 
+__all__ = ['Configuration']
+
+
 class Configuration(ModelSingleton, ModelSQL, ModelView):
     'Variant Configuration'
-    _name = 'product.variant.configuration'
-    _description = __doc__
+    __name__ = 'product.variant.configuration'
 
     code_separator = fields.Char('Code Separator')
 
-Configuration()
