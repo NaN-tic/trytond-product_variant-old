@@ -28,11 +28,12 @@ class Product:
         })
 
     @classmethod
-    def create(cls, vals):
-        if vals.get('template') and not vals['template']:
-            vals = vals.copy()
-            vals.pop('template')
-        return super(Product, cls).create(vals)
+    def create(cls, vlist):
+        for vals in vlist:
+            if vals.get('template') and not vals['template']:
+                vals = vals.copy()
+                vals.pop('template')
+        return super(Product, cls).create(vlist)
 
 
 class Template:
@@ -95,9 +96,12 @@ class Template:
         Product = pool.get('product.product')
         Value = pool.get('product.product-attribute.value')
         code = self.create_code(template.basecode, variant)
-        new_id = Product.create({'template': template.id, 'code': code})
+        product = Product.create([{'template': template.id, 'code': code}])[0]
+        to_create = []
         for value in variant:
-            Value.create({'product': new_id, 'value': value.id})
+            to_create.append({'product': product, 'value': value.id})
+        if to_create:
+            Value.create(to_create)
         return True
 
     @classmethod
