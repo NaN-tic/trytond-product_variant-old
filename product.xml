@@ -59,11 +59,12 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
                     <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
                         position="after">
                         <page string="Variants" col="4" id="variants">
-                            <field name="attributes" colspan="4"/>
+                            <field name="attributes" colspan="2"/>
+                            <field name="products" colspan="2"/>
                             <button name="generate_variants" 
                                 string="Generate Variants"
-                                icon="tryton-ok"/>
-                            <field name="products" colspan="4"/>
+                                icon="tryton-ok"
+                                colspan="4"/>
                         </page>
                     </xpath>
                 </data>
