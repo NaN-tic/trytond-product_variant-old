@@ -73,8 +73,8 @@ Para crear variantes, haga clic en la pestaña variantes:
 
 .. figure:: images/product_variant.png
 
-Módulos que dependen
-====================
+Módulos de los que depende
+==========================
 
 Instalados
 ----------
