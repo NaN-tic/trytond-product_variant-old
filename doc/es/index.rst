@@ -21,10 +21,3 @@ El resultado de generar sus variantes sería el siguiente:
 * Tryton T-Shirt B/L
 * Tryton T-Shirt B/M
 * ...
-
-Dependencias
-------------
-
-* Producto_
-
-.. _Producto: ../product/index.html
