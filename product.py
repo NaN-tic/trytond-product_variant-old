@@ -112,8 +112,7 @@ class Template:
             if not template.attributes:
                 continue
             already = set(tuple(i.attribute_values) for i in template.products)
-            to_del = [i.id for i in template.products
-                      if not i.attribute_values]
+            to_del = [i for i in template.products if not i.attribute_values]
             values = [i.values for i in template.attributes]
             variants = itertools.product(*values)
             for variant in variants:

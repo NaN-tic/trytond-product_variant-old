@@ -3,47 +3,6 @@
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-        <!-- product.product -->
-        <record model="ir.ui.view" id="product_view_form">
-            <field name="model">product.product</field>
-            <field name="inherit" ref="product.product_view_form"/>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <data>
-                    <xpath expr="/form/notebook" position="inside">
-                        <page string="Variants" id="variants" states="{'invisible': Not(Bool(Eval('variants')))}">
-                            <label name="variants"/>
-                            <field name="variants"/>
-                            <field name="attribute_values" colspan="4"/>
-                        </page>
-                    </xpath>
-                    <xpath
-                        expr="/form/label[@name='basecode']"
-                        position="replace"/>
-                    <xpath
-                        expr="/form/field[@name='basecode']"
-                        position="replace"/>
-                    <xpath expr="/form/notebook/page[@id='variants']"
-                        position="replace"/>      
-                </data>
-                ]]>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="product_view_tree">
-            <field name="model">product.product</field>
-            <field name="inherit" ref="product.product_view_tree"/>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <data>
-                    <xpath
-                        expr="/tree/field[@name=&quot;variants&quot;]"
-                        position="replace"/>
-                </data>
-                ]]>
-            </field>
-        </record>
-
         <!-- product.template -->
         <record model="ir.ui.view" id="template_view_form">
             <field name="model">product.template</field>
@@ -88,28 +47,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             </field>
         </record>
 
-        <record model="ir.action.act_window" id="act_template_form">
-            <field name="name">Product Template</field>
-            <field name="res_model">product.template</field>
-        </record>
-        <record model="ir.action.act_window.view" id="act_template_list_view">
-            <field name="sequence" eval="100"/>
-            <field name="view" ref="product.template_view_tree"/>
-            <field name="act_window" ref="act_template_form"/>
-        </record>
-        <record model="ir.action.act_window.view" id="act_template_form_view">
-            <field name="sequence" eval="110"/>
-            <field name="view" ref="product.template_view_form"/>
-            <field name="act_window" ref="act_template_form"/>
-        </record>
-        <menuitem name="Templates" parent="product.menu_main_product"
-            sequence="0" id="menu_product_templates" action="act_template_form"/>
-        <record model="ir.ui.menu-res.group"
-            id="menu_product_template_group">
-            <field name="menu" ref="menu_product_templates"/>
-            <field name="group" ref="product.group_product_admin"/>
-        </record>
-        
         <record model="ir.action.act_window" id="act_relate_form">
             <field name="name">Product Variants</field>
             <field name="res_model">product.product</field>
