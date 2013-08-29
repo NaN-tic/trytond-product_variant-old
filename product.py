@@ -19,13 +19,6 @@ class Product:
     attribute_values = fields.Many2Many('product.product-attribute.value',
         'product', 'value', 'Values', readonly=True,
         order=[('value', 'DESC')])
-    template = fields.Many2One('product.template', 'Product Template',
-        ondelete='CASCADE', select=1,
-        states={
-            'required': Greater(Eval('active_id', 0), 0),
-            'invisible': Not(Greater(Eval('active_id', 0), 0)),
-            'readonly': Not(Bool(Eval('variants')))
-        })
 
     @classmethod
     def create(cls, vlist):
