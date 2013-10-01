@@ -118,8 +118,7 @@ class ProductAttribute(ModelSQL, ModelView):
     "Product Attribute"
     __name__ = "product.attribute"
     sequence = fields.Integer('Sequence')
-    name = fields.Char('Name', required=True, translate=True, select=1,
-                       order_field="%(table)s.sequence %(order)s")
+    name = fields.Char('Name', required=True, translate=True, select=1)
     values = fields.One2Many('product.attribute.value', 'attribute', 'Values')
 
     @classmethod
@@ -128,8 +127,9 @@ class ProductAttribute(ModelSQL, ModelView):
         cls._order.insert(0, ('sequence', 'ASC'))
 
     @staticmethod
-    def default_sequence():
-        return 0
+    def order_sequence(tables):
+        table, _ = tables[None]
+        return [table.sequence == None, table.sequence]
 
 
 class AttributeValue(ModelSQL, ModelView):
