@@ -1,13 +1,11 @@
 #This file is part product_variant module for Tryton.
 #The COPYRIGHT file at the top level of this repository contains
 #the full copyright notices and license terms.
-
-import itertools
 from trytond.pool import Pool, PoolMeta
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pyson import Eval, Greater, Not, Bool
+from trytond.pyson import Eval, Not, Bool
 from trytond.transaction import Transaction
-
+import itertools
 
 __all__ = ['Product', 'Template', 'ProductAttribute', 'AttributeValue',
     'ProductTemplateAttribute', 'ProductAttributeValue']

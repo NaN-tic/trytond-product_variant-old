@@ -3,13 +3,13 @@
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-    
+
         <menuitem name="Variant Configuration" 
             parent="product.menu_main_product"
             sequence="10" 
             id="menu_product_configuration" 
             />
-            
+
         <record model="ir.ui.menu-res.group"
             id="menu_product_configuration_group">
             <field name="menu" ref="menu_product_configuration"/>
@@ -39,7 +39,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="view" ref="act_product_variant_configuration_form"/>
             <field name="act_window" ref="act_product_variant_configuration_form"/>
         </record>
-        
+
         <menuitem parent="menu_product_configuration" 
             id="menu_variant_configuration"
             action="act_product_variant_configuration_form"
@@ -50,6 +50,5 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="menu" ref="menu_variant_configuration"/>
             <field name="group" ref="product.group_product_admin"/>
         </record>
-
     </data>
 </tryton>

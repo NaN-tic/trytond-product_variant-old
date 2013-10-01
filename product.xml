@@ -52,7 +52,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="res_model">product.product</field>
             <field name="domain">[('template', '=', Eval('active_id'))]</field>
         </record>
-        
+
         <record model="ir.action.keyword" id="act_open_products">
             <field name="keyword">form_relate</field>
             <field name="model">product.template,-1</field>
@@ -132,7 +132,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
                 ]]>
             </field>
         </record>
-        
+
         <record model="ir.ui.view" id="product_attribute_value_view_tree">
             <field name="model">product.attribute.value</field>
             <field name="type">tree</field>
