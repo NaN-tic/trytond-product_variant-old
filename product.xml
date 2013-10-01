@@ -7,44 +7,13 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.ui.view" id="template_view_form">
             <field name="model">product.template</field>
             <field name="inherit" ref="product.template_view_form"/>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <data>
-                    <xpath expr="/form/field[@name=&quot;active&quot;]"
-                        position="after">
-                        <label name="basecode"/>
-                        <field name="basecode"/>
-                    </xpath>                    
-                    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]"
-                        position="after">
-                        <page string="Variants" col="4" id="variants">
-                            <field name="attributes" colspan="2"/>
-                            <field name="products" colspan="2"/>
-                            <button name="generate_variants" 
-                                string="Generate Variants"
-                                icon="tryton-ok"
-                                colspan="4"/>
-                        </page>
-                    </xpath>
-                </data>
-                ]]>
-            </field>
+            <field name="name">template_form</field>
         </record>
 
         <record model="ir.ui.view" id="template_view_tree">
             <field name="model">product.template</field>
             <field name="inherit" ref="product.template_view_tree"/>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <data>
-                    <xpath
-                        expr="/tree/field[@name=&quot;name&quot;]"
-                        position="after">
-                        <field name="variants"/>   
-                    </xpath>
-                </data>
-                ]]>
-            </field>
+            <field name="name">template_tree</field>
         </record>
 
         <record model="ir.action.act_window" id="act_relate_form">
@@ -63,32 +32,13 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.ui.view" id="product_attribute_view_form">
             <field name="model">product.attribute</field>
             <field name="type">form</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <form string="Product Attributes">
-                <label name="name"/>
-                <field name="name"/>
-                <label name="sequence"/>
-                <field name="sequence"/>
-                <newline/>
-                <field name="values" colspan="4"/>
-                </form>
-                ]]>
-            </field>
+            <field name="name">attribute_form</field>
         </record>
 
         <record model="ir.ui.view" id="product_attribute_view_tree">
             <field name="model">product.attribute</field>
             <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <tree string="Product Attributes" sequence="sequence">
-                <field name="sequence" tree_invisible="1"/>
-                <field name="name"/>
-                <field name="values"/>
-                </tree>
-                ]]>
-            </field>
+            <field name="name">attribute_tree</field>
         </record>
 
         <record model="ir.action.act_window" id="act_product_attribute_form">
@@ -105,7 +55,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="view" ref="product_attribute_view_form"/>
             <field name="act_window" ref="act_product_attribute_form"/>
         </record>
-        
+
         <menuitem name="Product Attributes" id="menu_product_attribute"
             parent="menu_product_configuration" sequence="10"
             action="act_product_attribute_form"/>        
@@ -119,33 +69,13 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.ui.view" id="product_attribute_value_view_form">
             <field name="model">product.attribute.value</field>
             <field name="type">form</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <form string="Product Attribute Values">
-                <label name="name"/>
-                <field name="name"/>
-                <label name="code"/>
-                <field name="code"/>
-                <label name="sequence"/>
-                <field name="sequence"/>
-                </form>
-                ]]>
-            </field>
+            <field name="name">attribute_value_value</field>
         </record>
 
         <record model="ir.ui.view" id="product_attribute_value_view_tree">
             <field name="model">product.attribute.value</field>
             <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <tree string="Product Attribute Values" sequence="sequence">
-                <field name="sequence" tree_invisible="1"/>
-                <field name="name"/>
-                <field name="code"/>
-                <field name="attribute"/>
-                </tree>
-                ]]>
-            </field>
+            <field name="name">attribute_value_tree</field>
         </record>
     </data>
 </tryton>
