@@ -3,52 +3,28 @@
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-
         <menuitem name="Variant Configuration" 
             parent="product.menu_main_product"
-            sequence="10" 
-            id="menu_product_configuration" 
-            />
+            id="menu_product_configuration"
+            sequence="10"/>
 
-        <record model="ir.ui.menu-res.group"
-            id="menu_product_configuration_group">
-            <field name="menu" ref="menu_product_configuration"/>
-            <field name="group" ref="product.group_product_admin"/>
-        </record>
-
-        <record model="ir.ui.view" id="configuration_view_form">
+        <record model="ir.ui.view" id="product_variant_configuration_view_form">
             <field name="model">product.variant.configuration</field>
             <field name="type">form</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <form string="Code Separator">
-                    <label name="code_separator"/>
-                    <field name="code_separator"/>
-                </form>
-                ]]>
-            </field>
+            <field name="name">configuration_form</field>
         </record>
-
         <record model="ir.action.act_window" id="act_product_variant_configuration_form">
-            <field name="name">Variant Configuration</field>
+            <field name="name">Product variants Configuration</field>
             <field name="res_model">product.variant.configuration</field>
         </record>
-
-        <record model="ir.action.act_window.view" id="act_product_configuration_view1">
-            <field name="sequence" eval="10"/>
-            <field name="view" ref="act_product_variant_configuration_form"/>
+        <record model="ir.action.act_window.view"
+            id="act_product_variant_configuration_view1">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="product_variant_configuration_view_form"/>
             <field name="act_window" ref="act_product_variant_configuration_form"/>
         </record>
-
-        <menuitem parent="menu_product_configuration" 
-            id="menu_variant_configuration"
+        <menuitem parent="menu_product_configuration"
             action="act_product_variant_configuration_form"
-            sequence="10" icon="tryton-list"
-            />
-        <record model="ir.ui.menu-res.group"
-            id="menu_variant_configuration_group">
-            <field name="menu" ref="menu_variant_configuration"/>
-            <field name="group" ref="product.group_product_admin"/>
-        </record>
+            id="menu_product_variant_configuration" icon="tryton-list"/>
     </data>
 </tryton>
