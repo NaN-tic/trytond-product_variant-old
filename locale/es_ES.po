@@ -194,13 +194,13 @@ msgctxt "model:ir.action,name:act_product_attribute_form"
 msgid "Product Attributes"
 msgstr "Atributos producto"
 
+msgctxt "model:ir.action,name:act_product_variant_configuration_form"
+msgid "Product variants Configuration"
+msgstr "Configuración variantes de producto"
+
 msgctxt "model:ir.action,name:act_relate_form"
 msgid "Product Variants"
 msgstr "Variantes producto"
-
-msgctxt "model:ir.action,name:act_variant_configuration_form"
-msgid "Variant Configuration"
-msgstr "Configuración variantes"
 
 msgctxt "model:ir.ui.menu,name:menu_product_attribute"
 msgid "Product Attributes"
@@ -210,13 +210,9 @@ msgctxt "model:ir.ui.menu,name:menu_product_configuration"
 msgid "Variant Configuration"
 msgstr "Configuración variantes"
 
-msgctxt "model:ir.ui.menu,name:menu_product_templates"
-msgid "Product Template"
-msgstr "Plantilla producto"
-
-msgctxt "model:ir.ui.menu,name:menu_variant_configuration"
-msgid "Variant Configuration"
-msgstr "Configuración variantes"
+msgctxt "model:ir.ui.menu,name:menu_product_variant_configuration"
+msgid "Product variants Configuration"
+msgstr "Configuración variantes de producto"
 
 msgctxt "model:product.attribute,name:"
 msgid "Product Attribute"
@@ -257,3 +253,7 @@ msgstr "Generar variantes"
 msgctxt "view:product.template:"
 msgid "Variants"
 msgstr "Variantes"
+
+msgctxt "view:product.variant.configuration:"
+msgid "Product Variant Configuration"
+msgstr "Configuración variante de producto"
