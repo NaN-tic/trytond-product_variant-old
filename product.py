@@ -137,7 +137,7 @@ class AttributeValue(ModelSQL, ModelView):
     name = fields.Char('Name', required=True, select=1)
     code = fields.Char('Code', required=True)
     attribute = fields.Many2One('product.attribute', 'Product Attribute',
-        required=True)
+        required=True, ondelete='CASCADE')
 
     @classmethod
     def __setup__(cls):
