@@ -46,7 +46,7 @@ class Template:
                 'generate_variants': {
                     'invisible': Eval('template'),
                     }
-            })
+                })
 
     @classmethod
     def delete(cls, templates):
@@ -85,15 +85,13 @@ class Template:
         "Create the product from variant"
         pool = Pool()
         Product = pool.get('product.product')
-        Value = pool.get('product.product-attribute.value')
         code = self.create_code(template.basecode, variant)
-        product = Product.create([{'template': template.id, 'code': code}])[0]
-        to_create = []
-        for value in variant:
-            to_create.append({'product': product, 'value': value.id})
-        if to_create:
-            Value.create(to_create)
-        return True
+        product, = Product.create([{
+                    'template': template.id,
+                    'code': code,
+                    'attribute_values': [('set', [v.id for v in variant])],
+                    }])
+        return product
 
     @classmethod
     @ModelView.button
