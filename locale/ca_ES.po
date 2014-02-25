@@ -78,6 +78,10 @@ msgctxt "field:product.attribute.value,write_uid:"
 msgid "Write User"
 msgstr "Usuari modificació"
 
+msgctxt "field:product.configuration,code_separator:"
+msgid "Code Separator"
+msgstr "Separador al codi"
+
 msgctxt "field:product.product,attribute_values:"
 msgid "Values"
 msgstr "Valors"
@@ -158,34 +162,6 @@ msgctxt "field:product.template-product.attribute,write_uid:"
 msgid "Write User"
 msgstr "Usuari modificació"
 
-msgctxt "field:product.variant.configuration,code_separator:"
-msgid "Code Separator"
-msgstr "Codi separadors"
-
-msgctxt "field:product.variant.configuration,create_date:"
-msgid "Create Date"
-msgstr "Data creació"
-
-msgctxt "field:product.variant.configuration,create_uid:"
-msgid "Create User"
-msgstr "Usuari creació"
-
-msgctxt "field:product.variant.configuration,id:"
-msgid "ID"
-msgstr "ID"
-
-msgctxt "field:product.variant.configuration,rec_name:"
-msgid "Name"
-msgstr "Nom"
-
-msgctxt "field:product.variant.configuration,write_date:"
-msgid "Write Date"
-msgstr "Data modificació"
-
-msgctxt "field:product.variant.configuration,write_uid:"
-msgid "Write User"
-msgstr "Usuari modificació"
-
 msgctxt "help:product.template,variants:"
 msgid "Number variants from this template"
 msgstr "Número de variants que conté la plantilla del producte."
@@ -194,10 +170,6 @@ msgctxt "model:ir.action,name:act_product_attribute_form"
 msgid "Product Attributes"
 msgstr "Atributs del producte"
 
-msgctxt "model:ir.action,name:act_product_variant_configuration_form"
-msgid "Product variants Configuration"
-msgstr "Configuració variants de producte"
-
 msgctxt "model:ir.action,name:act_relate_form"
 msgid "Product Variants"
 msgstr "Variants producte"
@@ -205,14 +177,6 @@ msgstr "Variants producte"
 msgctxt "model:ir.ui.menu,name:menu_product_attribute"
 msgid "Product Attributes"
 msgstr "Atributs del producte"
-
-msgctxt "model:ir.ui.menu,name:menu_product_configuration"
-msgid "Variant Configuration"
-msgstr "Configuració variants"
-
-msgctxt "model:ir.ui.menu,name:menu_product_variant_configuration"
-msgid "Product variants Configuration"
-msgstr "Configuració variants de producte"
 
 msgctxt "model:product.attribute,name:"
 msgid "Product Attribute"
@@ -230,10 +194,6 @@ msgctxt "model:product.template-product.attribute,name:"
 msgid "Product Template - Product Attribute"
 msgstr "Plantilla producte - Atribut producte"
 
-msgctxt "model:product.variant.configuration,name:"
-msgid "Variant Configuration"
-msgstr "Configuració variants"
-
 msgctxt "view:product.attribute.value:"
 msgid "Product Attribute Values"
 msgstr "Valors atributs del producte"
@@ -241,6 +201,10 @@ msgstr "Valors atributs del producte"
 msgctxt "view:product.attribute:"
 msgid "Product Attributes"
 msgstr "Atributs del producte"
+
+msgctxt "view:product.configuration:"
+msgid "Variants Configuration"
+msgstr "Cofiguració de les variants"
 
 msgctxt "view:product.product:"
 msgid "Variants"
@@ -253,7 +217,3 @@ msgstr "Genera variants"
 msgctxt "view:product.template:"
 msgid "Variants"
 msgstr "Variants"
-
-msgctxt "view:product.variant.configuration:"
-msgid "Product Variant Configuration"
-msgstr "Configuració variant de producte"

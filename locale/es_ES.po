@@ -78,6 +78,10 @@ msgctxt "field:product.attribute.value,write_uid:"
 msgid "Write User"
 msgstr "Usuario modificación"
 
+msgctxt "field:product.configuration,code_separator:"
+msgid "Code Separator"
+msgstr "Separador en el código"
+
 msgctxt "field:product.product,attribute_values:"
 msgid "Values"
 msgstr "Valores"
@@ -158,34 +162,6 @@ msgctxt "field:product.template-product.attribute,write_uid:"
 msgid "Write User"
 msgstr "Usuario modificación"
 
-msgctxt "field:product.variant.configuration,code_separator:"
-msgid "Code Separator"
-msgstr "Separador de código"
-
-msgctxt "field:product.variant.configuration,create_date:"
-msgid "Create Date"
-msgstr "Fecha creación"
-
-msgctxt "field:product.variant.configuration,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
-msgctxt "field:product.variant.configuration,id:"
-msgid "ID"
-msgstr "ID"
-
-msgctxt "field:product.variant.configuration,rec_name:"
-msgid "Name"
-msgstr "Nombre"
-
-msgctxt "field:product.variant.configuration,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-msgctxt "field:product.variant.configuration,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
 msgctxt "help:product.template,variants:"
 msgid "Number variants from this template"
 msgstr "Número de variantes que se dispone en esta plantilla deproducto."
@@ -194,10 +170,6 @@ msgctxt "model:ir.action,name:act_product_attribute_form"
 msgid "Product Attributes"
 msgstr "Atributos producto"
 
-msgctxt "model:ir.action,name:act_product_variant_configuration_form"
-msgid "Product variants Configuration"
-msgstr "Configuración variantes de producto"
-
 msgctxt "model:ir.action,name:act_relate_form"
 msgid "Product Variants"
 msgstr "Variantes producto"
@@ -205,14 +177,6 @@ msgstr "Variantes producto"
 msgctxt "model:ir.ui.menu,name:menu_product_attribute"
 msgid "Product Attributes"
 msgstr "Atributos producto"
-
-msgctxt "model:ir.ui.menu,name:menu_product_configuration"
-msgid "Variant Configuration"
-msgstr "Configuración variantes"
-
-msgctxt "model:ir.ui.menu,name:menu_product_variant_configuration"
-msgid "Product variants Configuration"
-msgstr "Configuración variantes de producto"
 
 msgctxt "model:product.attribute,name:"
 msgid "Product Attribute"
@@ -230,10 +194,6 @@ msgctxt "model:product.template-product.attribute,name:"
 msgid "Product Template - Product Attribute"
 msgstr "Plantilla producto - Atributo producto"
 
-msgctxt "model:product.variant.configuration,name:"
-msgid "Variant Configuration"
-msgstr "Configuración variantes"
-
 msgctxt "view:product.attribute.value:"
 msgid "Product Attribute Values"
 msgstr "Valores atributo producto"
@@ -241,6 +201,10 @@ msgstr "Valores atributo producto"
 msgctxt "view:product.attribute:"
 msgid "Product Attributes"
 msgstr "Atributos producto"
+
+msgctxt "view:product.configuration:"
+msgid "Variants Configuration"
+msgstr "Configuración de las variantes"
 
 msgctxt "view:product.product:"
 msgid "Variants"
@@ -253,7 +217,3 @@ msgstr "Generar variantes"
 msgctxt "view:product.template:"
 msgid "Variants"
 msgstr "Variantes"
-
-msgctxt "view:product.variant.configuration:"
-msgid "Product Variant Configuration"
-msgstr "Configuración variante de producto"

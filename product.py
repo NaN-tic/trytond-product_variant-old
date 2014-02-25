@@ -73,7 +73,7 @@ class Template:
 
     @classmethod
     def create_code(self, basecode, variant):
-        Config = Pool().get('product.variant.configuration')
+        Config = Pool().get('product.configuration')
         config = Config(1)
         sep = config.code_separator or ''
         code = '%s%s' % (basecode or '', ['', sep][bool(basecode)])
