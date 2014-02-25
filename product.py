@@ -98,18 +98,25 @@ class Template:
     @classmethod
     @ModelView.button
     def generate_variants(cls, templates):
-        """generate variants"""
+        """Generate variants"""
+        Product = Pool().get('product.product')
         for template in templates:
             if not template.attributes:
                 continue
-            already = set(tuple(i.attribute_values) for i in template.products)
+            all_template_products = Product.search([
+                    ('template', '=', template.id),
+                    ('active', 'in', (True, False)),
+                    ])
+            already = set(tuple(i.attribute_values)
+                for i in all_template_products)
             to_del = [i for i in template.products if not i.attribute_values]
             values = [i.values for i in template.attributes]
             variants = itertools.product(*values)
             for variant in variants:
                 if not variant in already:
                     cls.create_product(template, variant)
-            Pool().get('product.product').delete(to_del)
+            if to_del:
+                Product.delete(to_del)
 
 
 class ProductAttribute(ModelSQL, ModelView):
