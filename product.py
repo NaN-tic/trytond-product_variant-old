@@ -104,6 +104,16 @@ class Template:
                     'code': code,
                     })
 
+    def deactivate_variant_product(self, products):
+        """Deactivates supplied products"""
+        pool = Pool()
+        Product = pool.get('product.product')
+        to_update = [p for p in products if p.active]
+        if to_update:
+            Product.write(to_update, {
+                    'active': False,
+                    })
+
     @classmethod
     @ModelView.button
     def generate_variants(cls, templates):
@@ -117,20 +127,22 @@ class Template:
                     ('active', 'in', (True, False)),
                     ])
             products_by_attr_values = {}
+            to_deactivate = []
             for product in all_template_products:
-                products_by_attr_values.setdefault(
-                    tuple(product.attribute_values),
-                    []).append(product)
-            to_del = [i for i in template.products if not i.attribute_values]
-            values = [i.values for i in template.attributes]
+                if product.attribute_values:
+                    products_by_attr_values.setdefault(
+                        tuple(product.attribute_values),
+                        []).append(product)
+                else:
+                    to_deactivate.append(product)
+            values = [a.values for a in template.attributes]
             for variant in itertools.product(*values):
                 if variant in products_by_attr_values:
                     template.update_variant_product(
                         products_by_attr_values[variant], variant)
                 else:
                     template.create_variant_product(variant)
-            if to_del:
-                Product.delete(to_del)
+            template.deactivate_variant_product(to_deactivate)
 
 
 class ProductAttribute(ModelSQL, ModelView):
