@@ -72,7 +72,7 @@ class Template:
         return [('id', 'in', res)]
 
     @classmethod
-    def create_code(self, basecode, variant):
+    def create_variant_code(cls, basecode, variant):
         Config = Pool().get('product.configuration')
         config = Config(1)
         sep = config.code_separator or ''
@@ -80,18 +80,29 @@ class Template:
         code = code + sep.join(i.code for i in variant)
         return code
 
-    @classmethod
-    def create_product(self, template, variant):
+    def create_variant_product(self, variant):
         "Create the product from variant"
         pool = Pool()
         Product = pool.get('product.product')
-        code = self.create_code(template.basecode, variant)
+        code = self.create_variant_code(self.basecode, variant)
         product, = Product.create([{
-                    'template': template.id,
+                    'template': self.id,
                     'code': code,
                     'attribute_values': [('set', [v.id for v in variant])],
                     }])
         return product
+
+    def update_variant_product(self, products, variant):
+        """Updates the code of supplied products with the code returned by
+        create_code()"""
+        pool = Pool()
+        Product = pool.get('product.product')
+        code = self.create_variant_code(self.basecode, variant)
+        to_update = [p for p in products if p.code != code]
+        if to_update:
+            Product.write(to_update, {
+                    'code': code,
+                    })
 
     @classmethod
     @ModelView.button
@@ -105,14 +116,19 @@ class Template:
                     ('template', '=', template.id),
                     ('active', 'in', (True, False)),
                     ])
-            already = set(tuple(i.attribute_values)
-                for i in all_template_products)
+            products_by_attr_values = {}
+            for product in all_template_products:
+                products_by_attr_values.setdefault(
+                    tuple(product.attribute_values),
+                    []).append(product)
             to_del = [i for i in template.products if not i.attribute_values]
             values = [i.values for i in template.attributes]
-            variants = itertools.product(*values)
-            for variant in variants:
-                if not variant in already:
-                    cls.create_product(template, variant)
+            for variant in itertools.product(*values):
+                if variant in products_by_attr_values:
+                    template.update_variant_product(
+                        products_by_attr_values[variant], variant)
+                else:
+                    template.create_variant_product(variant)
             if to_del:
                 Product.delete(to_del)
 
