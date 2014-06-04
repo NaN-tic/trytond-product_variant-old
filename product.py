@@ -88,7 +88,7 @@ class Template:
         product, = Product.create([{
                     'template': self.id,
                     'code': code,
-                    'attribute_values': [('set', [v.id for v in variant])],
+                    'attribute_values': [('add', [v.id for v in variant])],
                     }])
         return product
 
