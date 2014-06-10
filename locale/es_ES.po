@@ -170,10 +170,6 @@ msgctxt "model:ir.action,name:act_product_attribute_form"
 msgid "Product Attributes"
 msgstr "Atributos producto"
 
-msgctxt "model:ir.action,name:act_relate_form"
-msgid "Product Variants"
-msgstr "Variantes producto"
-
 msgctxt "model:ir.ui.menu,name:menu_product_attribute"
 msgid "Product Attributes"
 msgstr "Atributos producto"

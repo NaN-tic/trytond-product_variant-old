@@ -10,17 +10,6 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">template_form</field>
         </record>
 
-        <record model="ir.action.act_window" id="act_relate_form">
-            <field name="name">Product Variants</field>
-            <field name="res_model">product.product</field>
-            <field name="domain">[('template', '=', Eval('active_id'))]</field>
-        </record>
-        <record model="ir.action.keyword" id="act_open_products">
-            <field name="keyword">form_relate</field>
-            <field name="model">product.template,-1</field>
-            <field name="action" ref="act_relate_form" />
-        </record>
-
         <!-- product.attribute -->
         <record model="ir.ui.view" id="product_attribute_view_form">
             <field name="model">product.attribute</field>
