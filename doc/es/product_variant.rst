@@ -30,10 +30,10 @@ Configuración
 Configuración
 -------------
 
-A través del menú |menu_variant_configuration| defina el carácter separador que
+A través del menú |menu_product_configuration| defina el carácter separador que
 se usará para los códigos, por ejemplo, la barra "/".
 
-.. |menu_variant_configuration| tryref:: product_variant.menu_variant_configuration/complete_name
+.. |menu_product_configuration| tryref:: product_configuration.menu_configuration/complete_name
 
 .. inheritref:: product_variant/product_variant:section:atributos
 
@@ -61,7 +61,7 @@ Plantilla producto
 Abra el menú |menu_product_templates| para ver todas las plantillas de
 productos, ya sean *simples* o con *variantes*.
 
-.. |menu_product_templates| tryref:: product_variant.menu_product_templates/complete_name
+.. |menu_product_templates| tryref:: product.menu_main_product/complete_name
 
 Para crear variantes, haga clic en la pestaña variantes:
 

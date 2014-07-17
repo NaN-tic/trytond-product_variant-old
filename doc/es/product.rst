@@ -3,7 +3,7 @@
 Variantes de producto
 =====================
 
-#:inside:product/product:toctree:atributos#
+.. inheritref:: product/product:toctree:variant
 
 .. toctree::
    :maxdepth: 2
