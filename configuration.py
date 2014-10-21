@@ -10,4 +10,4 @@ __metaclass__ = PoolMeta
 
 class Configuration:
     __name__ = 'product.configuration'
-    code_separator = fields.Char('Code Separator')
+    code_separator = fields.Property(fields.Char('Code Separator'))
