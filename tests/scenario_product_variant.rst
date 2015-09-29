@@ -14,10 +14,10 @@ Create database::
 
 Install product_variant::
 
-    >>> Module = Model.get('ir.module.module')
+    >>> Module = Model.get('ir.module')
     >>> product_variant_module, = Module.find([('name', '=', 'product_variant')])
     >>> Module.install([product_variant_module.id], config.context)
-    >>> Wizard('ir.module.module.install_upgrade').execute('upgrade')
+    >>> Wizard('ir.module.install_upgrade').execute('upgrade')
 
 Create attribute::
 
