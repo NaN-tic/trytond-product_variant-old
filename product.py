@@ -130,12 +130,13 @@ class Template:
             products_by_attr_values = {}
             to_deactivate = []
             for product in all_template_products:
-                if product.attribute_values:
-                    products_by_attr_values.setdefault(
-                        tuple(product.attribute_values),
-                        []).append(product)
-                else:
-                    to_deactivate.append(product)
+                if (product.attribute_values
+                    and all([v.active for v in product.attribute_values])):
+                        products_by_attr_values.setdefault(
+                            tuple(product.attribute_values),
+                            []).append(product)
+                        continue
+                to_deactivate.append(product)
             values = [a.values for a in template.attributes]
             for variant in itertools.product(*values):
                 if variant in products_by_attr_values:
@@ -172,6 +173,7 @@ class AttributeValue(ModelSQL, ModelView):
     code = fields.Char('Code', required=True)
     attribute = fields.Many2One('product.attribute', 'Product Attribute',
         required=True, ondelete='CASCADE')
+    active = fields.Boolean('Active', select=True)
 
     @classmethod
     def __setup__(cls):
@@ -181,6 +183,26 @@ class AttributeValue(ModelSQL, ModelView):
     @staticmethod
     def default_sequence():
         return 0
+
+    def deactivate(self, values):
+        """Deactivates products attribute values"""
+        pool = Pool()
+        Product = pool.get('product.attribute.value')
+        to_update = [p for p in values if p.active]
+        if to_update:
+            Product.write(to_update, {
+                    'active': False,
+                    })
+
+    def activate(self, values):
+        """Deactivates products attribute values"""
+        pool = Pool()
+        Product = pool.get('product.attribute.value')
+        to_update = [p for p in values if not p.active]
+        if to_update:
+            Product.write(to_update, {
+                    'active': True,
+                    })
 
 
 class ProductTemplateAttribute(ModelSQL, ModelView):
