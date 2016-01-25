@@ -47,7 +47,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         </record>
 
         <menuitem name="Product Attributes" id="menu_product_attribute"
-            parent="product_configuration.menu_configuration"
+            parent="product.menu_configuration"
             sequence="10"
             action="act_product_attribute_form"/>
         <record model="ir.ui.menu-res.group"
