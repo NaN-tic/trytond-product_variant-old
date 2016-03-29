@@ -9,10 +9,10 @@ import itertools
 
 __all__ = ['Product', 'Template', 'ProductAttribute', 'AttributeValue',
     'ProductTemplateAttribute', 'ProductAttributeValue']
-__metaclass__ = PoolMeta
 
 
 class Product:
+    __metaclass__ = PoolMeta
     __name__ = 'product.product'
     attribute_values = fields.Many2Many('product.product-attribute.value',
         'product', 'value', 'Values', readonly=True,
@@ -28,6 +28,7 @@ class Product:
 
 
 class Template:
+    __metaclass__ = PoolMeta
     __name__ = 'product.template'
     basecode = fields.Char('Basecode',
         states={
