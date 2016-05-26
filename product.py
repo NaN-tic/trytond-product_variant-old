@@ -130,17 +130,19 @@ class Template:
             to_deactivate = []
             for product in all_template_products:
                 if (product.attribute_values
-                    and all([v.active for v in product.attribute_values])):
-                        products_by_attr_values.setdefault(
-                            tuple(product.attribute_values),
-                            []).append(product)
-                        continue
+                        and all(v.active for v in product.attribute_values)):
+                    key = tuple(
+                        sorted(v.id for v in product.attribute_values))
+                    products_by_attr_values.setdefault(key, []).append(
+                        product)
+                    continue
                 to_deactivate.append(product)
             values = [a.values for a in template.attributes]
             for variant in itertools.product(*values):
-                if variant in products_by_attr_values:
+                key = tuple(sorted(v.id for v in variant))
+                if key in products_by_attr_values:
                     template.update_variant_product(
-                        products_by_attr_values[variant], variant)
+                        products_by_attr_values[key], variant)
                 else:
                     template.create_variant_product(variant)
             template.deactivate_variant_product(to_deactivate)
