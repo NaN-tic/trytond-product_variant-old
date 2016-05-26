@@ -185,6 +185,10 @@ class AttributeValue(ModelSQL, ModelView):
     def default_sequence():
         return 0
 
+    @staticmethod
+    def default_active():
+        return True
+
     def deactivate(self, values):
         """Deactivates products attribute values"""
         pool = Pool()
